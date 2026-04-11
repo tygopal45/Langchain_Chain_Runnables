@@ -24,6 +24,8 @@ class NakliLLM:
 
     return {'response': random.choice(response_list)}
 
+
+
 class NakliPromptTemplate:
 
   def __init__(self, template, input_variables):
@@ -39,10 +41,14 @@ template = NakliPromptTemplate(
 )
 
 prompt = template.format({'length':'short','topic':'india'})
+print(prompt)
 
 llm = NakliLLM()
+result1 = llm.predict(prompt)
+print(result1)
 
-llm.predict(prompt)
+
+
 
 class NakliLLMChain:
 
@@ -66,5 +72,7 @@ llm = NakliLLM()
 
 chain = NakliLLMChain(llm, template)
 
-chain.run({'length':'short', 'topic': 'india'})
+result = chain.run({'length':'short', 'topic': 'india'})
+
+print(result)
 

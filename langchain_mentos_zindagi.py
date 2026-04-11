@@ -8,6 +8,8 @@ Original file is located at
 """
 
 from abc import ABC, abstractmethod
+# we used abstract method to make runnable interface.
+
 
 class Runnable(ABC):
 
@@ -42,6 +44,7 @@ class NakliLLM(Runnable):
 
     return {'response': random.choice(response_list)}
 
+
 class NakliPromptTemplate(Runnable):
 
   def __init__(self, template, input_variables):
@@ -62,6 +65,7 @@ class NakliStrOutputParser(Runnable):
   def invoke(self, input_data):
     return input_data['response']
 
+
 class RunnableConnector(Runnable):
 
   def __init__(self, runnable_list):
@@ -73,6 +77,7 @@ class RunnableConnector(Runnable):
       input_data = runnable.invoke(input_data)
 
     return input_data
+
 
 template = NakliPromptTemplate(
     template='Write a {length} poem about {topic}',
@@ -86,6 +91,7 @@ parser = NakliStrOutputParser()
 chain = RunnableConnector([template, llm, parser])
 
 chain.invoke({'length':'long', 'topic':'india'})
+
 
 template1 = NakliPromptTemplate(
     template='Write a joke about {topic}',
